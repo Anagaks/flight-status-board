@@ -1,0 +1,75 @@
+/* Container */
+.table-container {
+    margin: 24px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: auto;
+}
+
+/* Material table */
+table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header row */
+.mat-mdc-header-row {
+    background-color: #1976d2;
+}
+
+/* Header cells */
+.mat-mdc-header-cell {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Body cells */
+.mat-mdc-cell {
+    font-size: 14px;
+    padding: 14px;
+}
+
+/* Zebra striping */
+.mat-mdc-row:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Hover effect */
+.mat-mdc-row:hover {
+    background-color: #e3f2fd;
+    cursor: pointer;
+}
+
+/* Search field */
+.search-field {
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+/* Paginator */
+mat-paginator {
+    margin-top: 12px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.status-on-time {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.status-delayed {
+    color: #ed6c02;
+    font-weight: 600;
+}
+
+.status-cancelled {
+    color: #d32f2f;
+    font-weight: 600;
+}
+th.mat-sort-header-sorted {
+    color: black;
+}
