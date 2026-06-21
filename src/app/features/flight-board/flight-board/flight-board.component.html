@@ -1,10 +1,22 @@
-<mat-form-field appearance="outline">
-    <mat-label>Search Destination</mat-label>
+<div class="header">
+  <ul class="features-list">
+    <li>Get Flight Status  </li>
+    <li> * </li>
+    <li>Search by Destination </li>
+    <li> * </li>
+    <li>Filter by Status </li>
+  </ul>
+</div>
 
+<div class="search-container">
+<mat-form-field appearance="outline">
+    <mat-label>Search By Destination</mat-label>
     <input matInput (keyup)="onSearch($event)" />
 </mat-form-field>
+</div>
 
-<div class="mat-elevation-z8">
+
+    <div class="table-container mat-elevation-z8">
 <table mat-table [dataSource]="pagedFlights()" matSort (matSortChange)="announceSortChange($event)"
        class="mat-elevation-z8">
 
@@ -25,7 +37,7 @@
         </ng-container>
         
         <ng-container matColumnDef="arrivalTime">
-            <th mat-header-cell *matHeaderCellDef>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Arrival Time">
                 Arrival Time
             </th>
         
@@ -34,37 +46,41 @@
             </td>
         </ng-container>
         
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status
-                <button mat-icon-button [matMenuTriggerFor]="statusMenu">
-                    <mat-icon>filter_list</mat-icon>
-                </button>
-                
-                <mat-menu #statusMenu="matMenu">
-                    <button mat-menu-item (click)="onStatusChange('all')">
-                        All
-                    </button>
-                
-                    <button mat-menu-item (click)="onStatusChange('On Time')">
-                        On Time
-                    </button>
-                
-                    <button mat-menu-item (click)="onStatusChange('Delayed')">
-                        Delayed
-                    </button>
-                
-                    <button mat-menu-item (click)="onStatusChange('Cancelled')">
-                        Cancelled
-                    </button>
-                </mat-menu>
-            </th>
-        
-            <td mat-cell *matCellDef="let flight">
-                {{ flight.status }}
-            </td>
-        </ng-container>
+   <ng-container matColumnDef="status">
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+    Status
+
+    <button mat-icon-button [matMenuTriggerFor]="statusMenu">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+
+    <mat-menu #statusMenu="matMenu">
+      <button mat-menu-item (click)="onStatusChange('all')">
+        All
+      </button>
+
+      <button mat-menu-item (click)="onStatusChange('On Time')">
+        On Time
+      </button>
+
+      <button mat-menu-item (click)="onStatusChange('Delayed')">
+        Delayed
+      </button>
+
+      <button mat-menu-item (click)="onStatusChange('Cancelled')">
+        Cancelled
+      </button>
+    </mat-menu>
+  </th>
+
+  <td mat-cell *matCellDef="let flight">
+    {{ flight.status }}
+  </td>
+
+</ng-container>
+
+        <tr mat-header-row class ='' *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 

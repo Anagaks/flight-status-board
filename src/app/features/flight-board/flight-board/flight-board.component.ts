@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { interval } from 'rxjs/internal/observable/interval';
 import { Subscription } from 'rxjs';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -29,11 +30,13 @@ import { Subscription } from 'rxjs';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
-      MatMenuModule,
+  MatMenuModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatTabsModule
   ],
-  templateUrl: './flight-board.component.html'
+  templateUrl: './flight-board.component.html',
+  styleUrl: './flight-board.component.css'
 })
 export class FlightBoardComponent {
 
@@ -81,17 +84,14 @@ ngOnDestroy() {
     this.dataSource.sort = this.sort;
  }
     /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
+ announceSortChange(sort: Sort) {
+  console.log('Sort Event:', sort);
+  this.sortActive.set(sort.active);
+  this.sortDirection.set(sort.direction);
+}
+
+  sortActive = signal('');
+sortDirection = signal<'asc' | 'desc' | ''>('');
 
   // Computed signal
 
@@ -110,12 +110,14 @@ pagedFlights = computed(() => {
 
     let data = [...this.flights()];
 
+    // filter by status
     if (this.statusFilter() !== 'all') {
       data = data.filter(
         flight => flight.status === this.statusFilter().toLowerCase()
       );
     }
 
+    // filter by destination
     if (this.destinationFilter()) {
       data = data.filter(
         flight =>
@@ -125,6 +127,22 @@ pagedFlights = computed(() => {
       );
     }
 
+    // sorting 
+    const active = this.sortActive();
+  const direction = this.sortDirection();
+
+  if (active && direction) {
+    data.sort((a: any, b: any) => {
+      const valueA = a[active];
+      const valueB = b[active];
+
+      const result =
+        valueA < valueB ? -1 :
+        valueA > valueB ? 1 : 0;
+
+      return direction === 'asc' ? result : -result;
+    });
+  }
       return data;
 
   });
