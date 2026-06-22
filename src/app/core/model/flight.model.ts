@@ -1,9 +1,8 @@
-export type FlightStatus = 'on-time' | 'delayed' | 'cancelled';
+export type FlightStatus = 'On Time' | 'Delayed' | 'Cancelled';
 
 export interface Flight {
-    id: String;
     origin: string;
     destination: string;
-    arrivalTime: number;
+    arrivalTime: string;
     status: FlightStatus;
 }

@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { FlightBoardComponent } from './features/flight-board/flight-board/flight-board.component';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FlightBoardComponent],
+  imports: [ FlightBoardComponent ,RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
