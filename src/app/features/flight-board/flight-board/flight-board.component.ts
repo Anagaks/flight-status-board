@@ -128,6 +128,7 @@ export class FlightBoardComponent implements OnInit, OnDestroy {
     this.pageIndex.set(0); // Reset to first page on search
   }
 
+  // By Considering performance in case of 100 000 flights pagination is implemented to show only 5 records at a time and user can navigate through pages
   onPageChange(event: PageEvent) {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
